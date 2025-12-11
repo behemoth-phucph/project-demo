@@ -5,9 +5,9 @@ steps:
       - 'build'
       - '--platform=linux/amd64'
       - '-t'
-      - 'asia-northeast1-docker.pkg.dev/glossy-attic-443507-u6/docker/backend-rails:$SHORT_SHA'
+      - 'us-east1-docker.pkg.dev/project-demo-480213/demo-1/docker/backend-rails:$SHORT_SHA'
       - '-t'
-      - 'asia-northeast1-docker.pkg.dev/glossy-attic-443507-u6/docker/backend-rails:latest'
+      - 'us-east1-docker.pkg.dev/project-demo-480213/demo-1/docker/backend-rails:latest'
       - '.'
     dir: 'backend'
 
@@ -15,14 +15,14 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args:
       - 'push'
-      - 'asia-northeast1-docker.pkg.dev/glossy-attic-443507-u6/docker/backend-rails:$SHORT_SHA'
+      - 'us-east1-docker.pkg.dev/project-demo-480213/demo-1/docker/backend-rails:$SHORT_SHA'
     dir: 'backend'
 
   # Push the Docker image with latest tag
   - name: 'gcr.io/cloud-builders/docker'
     args:
       - 'push'
-      - 'asia-northeast1-docker.pkg.dev/glossy-attic-443507-u6/docker/backend-rails:latest'
+      - 'us-east1-docker.pkg.dev/project-demo-480213/demo-1/docker/backend-rails:latest'
     dir: 'backend'
 
   # Update Kubernetes deployment (optional)
@@ -31,16 +31,16 @@ steps:
       - 'set'
       - 'image'
       - 'deployment/backend-rails'
-      - 'backend-rails=asia-northeast1-docker.pkg.dev/glossy-attic-443507-u6/docker/backend-rails:$SHORT_SHA'
+      - 'backend-rails=us-east1-docker.pkg.dev/project-demo-480213/demo-1/docker/backend-rails:$SHORT_SHA'
       - '-n'
       - 'demo'
     env:
       - 'CLOUDSDK_COMPUTE_REGION=us-west1'
-      - 'CLOUDSDK_CONTAINER_CLUSTER=autopilot-cluster'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=demo-cluster'
 
 images:
-  - 'asia-northeast1-docker.pkg.dev/glossy-attic-443507-u6/docker/backend-rails:$SHORT_SHA'
-  - 'asia-northeast1-docker.pkg.dev/glossy-attic-443507-u6/docker/backend-rails:latest'
+  - 'us-east1-docker.pkg.dev/project-demo-480213/demo-1/docker/backend-rails:$SHORT_SHA'
+  - 'us-east1-docker.pkg.dev/project-demo-480213/demo-1/docker/backend-rails:latest'
 
 # Options:
 # machineType: Uses n1-standard-1 by default (cheaper, within free tier)
